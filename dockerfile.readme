@@ -1,0 +1,36 @@
+// Identifica a imagem do container
+FROM debian
+MAINTAINER robson rferreira@ifsp.edu.br
+
+// Executa um comando dentro container
+RUN apt-get update && apt-get install apache2 && apt-get clean
+
+// Copiar um arquivo para dentro do container
+ADD opa.txt /diretorio/
+
+// Parametro do ENTRYPOINT
+CMD ["sh", "-c", "echo", "$HOME"]
+
+// Metadata para descrição do container
+LABEL Description="Descrição"
+
+// Copia um arquivo para dentro do container
+COPY opa.txt /diretorio/
+
+//ENTRYPOINT um processo será o principal processo
+ENTRYPOINT ["/usr/bin/apache2ctl", "-D", "FOREGROUND"]
+
+//Variáveis de ambiente
+ENV meunome="Robson Lopes"
+
+//Expõe porta do serviço disponibilizado no container
+EXPOSE 80
+
+// Usuario default do containert
+USER sysadmin
+
+// Diretorio de trabalho desse container
+WORKDIR /var/www/html
+
+// Volume do container
+VOLUME /teste
